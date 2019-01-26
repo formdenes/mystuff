@@ -23,7 +23,7 @@ function pseudoRandom(num:number){
 //Random color generator
 function randomColor(colorSeed:number){
     const r = function (variation:number) { return Math.floor(pseudoRandom(colorSeed*variation)*256) };
-    return "rgb(" + r(23345) + "," + r(64435) + "," + r(13436) + ")";
+    return "rgb(" + r(2334) + "," + r(6443) + "," + r(1343) + ")";
 }
 
 //Hexagon drawing function (coordinates of the middle point, the size of the sides, the color of the hexagon)
@@ -63,11 +63,16 @@ function drawHexagon(xstart:number, ystart:number,size:number, color){
     ctx.stroke();
     ctx.fill();
     if (size>5){
-        drawHexagon(xstart-size/4,ystart-m/2,size/2,randomColor(seed*size));
-        drawHexagon(xstart+size/2,ystart,size/2,randomColor(seed*size));
-        drawHexagon(xstart-size/4,ystart+m/2,size/2,randomColor(seed*size));
+        drawHexagon(xstart-size/3,ystart+m/3*2,size/3,randomColor(seed*size));
+        drawHexagon(xstart+size/3,ystart+m/3*2,size/3,randomColor(seed*size));
+        drawHexagon(xstart+size/3*2,ystart,size/3,randomColor(seed*size));
+        drawHexagon(xstart+size/3,ystart-m/3*2,size/3,randomColor(seed*size));
+        drawHexagon(xstart-size/3,ystart-m/3*2,size/3,randomColor(seed*size));
+        drawHexagon(xstart-size/3*2,ystart,size/3,randomColor(seed*size));
     }
 }
+
+
 
 
 drawHexagon(canvasSize/2,canvasSize/2,canvasSize/2,randomColor(seed));
