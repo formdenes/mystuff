@@ -7,6 +7,7 @@ const ctx = canvas.getContext('2d');
 
 //const values
 const canvasSize:number = 900;
+const originalSize:number = 700;
 const seed:number = Math.floor(Math.random()*10000);
 
 function pseudoRandomBig(x:number){
@@ -49,7 +50,7 @@ function drawKoch(xstart:number, ystart:number,size:number,angle:number , color)
     ctx.lineTo(xstart + xend,ystart - yend);
     ctx.stroke();
     
-    if (size>10){
+    if (size>5){
         x1 = xstart + xend/3;
         y1 = ystart - yend/3;
         x2 = xstart + xend/3*2;
@@ -79,4 +80,6 @@ function drawKoch(xstart:number, ystart:number,size:number,angle:number , color)
 
 
 
-drawKoch(0,canvasSize/2,canvasSize,Math.PI/2,'black');
+drawKoch((canvasSize-originalSize)/2, canvasSize/2-originalSize*Math.sqrt(3)/2/3,originalSize,Math.PI/2,'black');
+drawKoch(canvasSize-(canvasSize-originalSize)/2,canvasSize/2-originalSize*Math.sqrt(3)/2/3, originalSize,Math.PI/6*7,'black');
+drawKoch(canvasSize/2,canvasSize/2+originalSize*Math.sqrt(3)/3, originalSize,-Math.PI/6,'black');
