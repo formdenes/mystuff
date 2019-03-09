@@ -21,10 +21,10 @@ const conn = mysql.createConnection({
 app.set('view engine', 'ejs');
 
 //Setting up middleware for static folder
-app.use('/static', express.static('static'));
+app.use('/banan', express.static('alma'));
 
 
-//Check if can connect to DB
+//Check if server can connect to DB
 conn.connect((err) => {
   if (err) {
     console.error('Error connecting to DB');
@@ -59,6 +59,33 @@ app.get('/articles', (req, res) => {
     }
     res.json(rows);
   });
+});
+
+//Endpoint for searching articles by authors
+app.get('/articles/search/:by', (req, res) => {
+  const searchBase = req.params.by;
+  const searchKey = req.query.filter ? req.query.filter : '';
+  console.log('Parameters', req.params);
+  console.log('Query', req.query);
+  if (searchBase == 'authors'){
+    conn.query(`
+    SELECT
+    title,
+    url,
+    first_name AS firstName,
+    last_name AS lastName
+    FROM articles ar
+    LEFT JOIN authors au
+    ON ar.author_id = au.author_id
+    WHERE first_name = '${searchKey}';`, (err, rows) => {
+    if (err) {
+      res.status(500).send();
+      console.error(err);
+      return;
+    }
+    res.render('articles', {rows: rows});
+  });
+  };
 });
 
 
