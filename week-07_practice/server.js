@@ -19,3 +19,6 @@ const conn = mysql.createConnection({
 
 //Use ejs as template view engine, from view folder
 app.set('view engine', 'ejs');
+
+//Setting up middleware for static folder
+app.use('/static', express.static('static'));
