@@ -34,9 +34,33 @@ conn.connect((err) => {
   console.log('DB is connected');
 });
 
+
+//Checked server connection
 app.get('/home', (req, res) => {
   res.send('IT\'S ALIVE');
 }); 
+
+
+//Endpoint for listing all the articles
+app.get('/articles', (req, res) => {
+  conn.query(`
+  SELECT
+  title,
+  url,
+  first_name AS firstName,
+  last_name AS lastName
+  FROM articles ar
+  LEFT JOIN authors au
+  ON ar.author_id = au.author_id;`, (err, rows) => {
+    if (err) {
+      res.status(500).send();
+      console.error(err);
+      return;
+    }
+    res.json(rows);
+  });
+});
+
 
 //Setting up fülelés
 app.listen(PORT, () => {
