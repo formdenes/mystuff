@@ -22,3 +22,20 @@ app.set('view engine', 'ejs');
 
 //Setting up middleware for static folder
 app.use('/static', express.static('static'));
+
+
+//Check if can connect to DB
+conn.connect((err) => {
+  if (err) {
+    console.error('Error connecting to DB');
+    console.error(err);
+    return;
+  }
+  console.log('DB is connected');
+})
+
+
+//Setting up fülelés
+app.listen(PORT, () => {
+  console.log(`Server is fülel @ ${PORT}`);
+});
