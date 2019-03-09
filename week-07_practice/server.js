@@ -32,8 +32,11 @@ conn.connect((err) => {
     return;
   }
   console.log('DB is connected');
-})
+});
 
+app.get('/home', (req, res) => {
+  res.send('IT\'S ALIVE');
+}); 
 
 //Setting up fülelés
 app.listen(PORT, () => {
